@@ -1,4 +1,5 @@
 def call(body) {
+    List<String> artifactsList = []
     def pipelineParams = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = pipelineParams
@@ -46,7 +47,7 @@ def call(body) {
 				      rtMaven.tool = 'Maven'
 				      rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
 
-				      def buildInfo = rtMaven.run pom: 'pom.xml', goals: '${pipelineParams.mavengoals}'
+				      def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 				      server.publishBuildInfo buildInfo
 				      
 			      }
